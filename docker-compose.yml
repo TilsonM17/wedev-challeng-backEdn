@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+    app_wedev:
+        build:
+            args:
+                user: dev
+                uid: 1002
+            context: ./
+            dockerfile: ./docker/Dockerfile
+        image: app_wedev
+        container_name: app_wedev
+        restart: unless-stopped
+        working_dir: /var/www/
+        ports:
+            - 9000:9000
+        volumes:
+            - ./:/var/www
+        networks:
+            - challenge
+    nginx:
+        image: nginx:1.17-alpine
+        container_name: nginx_wedev
+        restart: unless-stopped
+        ports:
+            - 80:80
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - challenge
+    db:
+        image: postgres
+        container_name: db_wedev
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_USER=$DB_USERNAME
+            - POSTGRES_PASSWORD=$DB_PASSWORD
+            - POSTGRES_DB=$DB_DATABASE
+            - PGUSER=$DB_USERNAME
+            - PGPASSWORD=$DB_PASSWORD
+            - PGDATABASE=$DB_DATABASE
+            - PGDATA=/data/postgres
+        volumes:
+            - ~/.databases/wedev_challeng_backedn:/data/postgres
+        networks:
+            - challenge
+
+networks:
+    challenge:
+        driver: bridge
