@@ -3,3 +3,6 @@ up:
 
 stop:
 	docker-compose stop
+
+shell:
+	docker-compose exec app_wedev bash
