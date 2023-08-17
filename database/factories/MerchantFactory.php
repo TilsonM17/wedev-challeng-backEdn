@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Merchant>
  */
-class UserFactory extends Factory
+class MerchantFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +18,8 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'full_name' => fake()->name(),
-            'is_admin' => $this->faker->randomElement([true, false]),
+            'merchant_name' => $this->faker->name,
+            'admin_id' => \App\Models\User::inRandomOrder()->first()->id,
         ];
     }
 }
