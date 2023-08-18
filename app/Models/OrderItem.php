@@ -9,7 +9,7 @@ class OrderItem extends Model
 {
     use HasFactory;
 
-    protected $table = "order_product";
-    
+    protected $table = 'order_product';
+
     public $timestamps = false;
 }
