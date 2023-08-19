@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -20,6 +19,8 @@ class UserFactory extends Factory
         return [
             'full_name' => fake()->name(),
             'is_admin' => $this->faker->randomElement([true, false]),
+            'email' => $this->faker->unique()->safeEmail(),
+            'password' => 'abc123',
         ];
     }
 }

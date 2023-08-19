@@ -1,12 +1,12 @@
 <?php
 
 use App\Enums\OrderEnums;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\User;
-use App\Models\Product;
-use App\Models\Order;
 
 return new class extends Migration
 {
@@ -22,7 +22,7 @@ return new class extends Migration
                 OrderEnums::PENDING->value,
                 OrderEnums::PROCESSING->value,
                 OrderEnums::COMPLETED->value,
-                OrderEnums::DECLINED->value
+                OrderEnums::DECLINED->value,
             ])->default(OrderEnums::PENDING->value);
             $table->timestamps();
         });

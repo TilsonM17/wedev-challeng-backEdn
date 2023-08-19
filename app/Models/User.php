@@ -14,6 +14,14 @@ class User extends Authenticatable
 
     protected $guarded = ['id'];
 
+    protected $hidden = [
+        'password',
+    ];
+
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
     public function merchant()
     {
         return $this->hasOne(Merchant::class, 'admin_id');

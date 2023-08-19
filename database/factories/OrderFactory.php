@@ -23,7 +23,7 @@ class OrderFactory extends Factory
                 OrderEnums::PENDING->value,
                 OrderEnums::PROCESSING->value,
                 OrderEnums::COMPLETED->value,
-                OrderEnums::DECLINED->value
+                OrderEnums::DECLINED->value,
             ]),
         ];
     }

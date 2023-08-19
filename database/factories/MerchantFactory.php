@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +18,7 @@ class MerchantFactory extends Factory
     {
         return [
             'merchant_name' => $this->faker->name,
-            'admin_id' => \App\Models\User::inRandomOrder()->first()->id,
+            'user_id' => \App\Models\User::inRandomOrder()->first()->id,
         ];
     }
 }

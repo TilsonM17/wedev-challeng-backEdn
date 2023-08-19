@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('merchants', function (Blueprint $table) {
             $table->id();
             $table->string('merchant_name');
-            $table->foreignIdFor(User::class, 'admin_id');
+            $table->foreignIdFor(User::class, 'user_id');
             $table->timestamps();
         });
     }

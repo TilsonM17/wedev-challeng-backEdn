@@ -1,10 +1,10 @@
 <?php
 
+use App\Enums\ProductEnums;
+use App\Models\Merchant;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Enums\ProductEnums;
-use App\Models\Merchant;
 
 return new class extends Migration
 {
@@ -21,12 +21,11 @@ return new class extends Migration
             $table->enum('status', [
                 ProductEnums::OUT_OF_STOCK->value,
                 ProductEnums::IN_STOCK->value,
-            ])->default(ProductEnums::IN_STOCK->value);  
+                ProductEnums::RUNNING_LOW->value,
+            ])->default(ProductEnums::IN_STOCK->value);
             $table->timestamps();
         });
 
-
-        
     }
 
     /**

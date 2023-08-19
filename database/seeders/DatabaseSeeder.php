@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
 
         foreach ($allOrders as $order) {
             $order->products()->attach(\App\Models\Product::inRandomOrder()->first()->id, [
-                'quantity' => rand(1, 10)
+                'quantity' => rand(1, 10),
             ]);
         }
 
