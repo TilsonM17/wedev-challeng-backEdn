@@ -11,17 +11,16 @@ use Tests\TestCase;
 
 class LoginUserTest extends TestCase
 {
-    use RefreshDatabase;
+//    use RefreshDatabase;
 
     public function test_user_can_login_with_valid_credentials()
     {
-        User::class::factory()->create([
-            'email' => 'test@example.com',
+        $user = User::class::factory()->create([
             'password' => bcrypt('password123'),
         ]);
 
         $response = $this->postJson('/api/login', [
-            'email' => 'test@example.com',
+            'email' => $user->email,
             'password' => 'password123',
         ]);
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class UsersController extends Controller
 {
@@ -24,6 +25,7 @@ class UsersController extends Controller
         $validator = Validator::make($request->all(), [
             'full_name' => 'required|string',
             'is_admin' => 'required|boolean',
+            'email' => 'required|email',
         ]);
 
         if ($validator->fails()) {
@@ -33,7 +35,9 @@ class UsersController extends Controller
             ], 422);
         }
 
-        User::create($validator->validated());
+        User::create(
+            array_merge(['password' => bcrypt(Str::random())], $validator->validated())
+        );
 
         return response()->json(['message' => 'Usuario cadastrado com sucesso!']);
 

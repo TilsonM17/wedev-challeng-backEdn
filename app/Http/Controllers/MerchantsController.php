@@ -45,6 +45,7 @@ class MerchantsController extends Controller
         $data = $validator->validated();
         unset($data['is_admin']);
         $user = User::find($data['admin_id']);
+        unset($data['admin_id']);
 
         $user->merchant()->create($data);
 
