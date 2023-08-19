@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Merchant;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
-class MerchantsController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Merchant::paginate(15);
+        return User::paginate(15);
     }
 
     /**
@@ -25,42 +22,29 @@ class MerchantsController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'merchant_name' => 'required|string',
-            'is_admin' => [
-                'required',
-                Rule::exists('users')->where(function (Builder $query) {
-                    return $query->where('is_admin', true);
-                }),
-            ],
-            'admin_id' => 'required|integer'
+            'full_name' => 'required|string',
+            'is_admin' => 'required|boolean',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Merchant não cadastrado!',
+                'message' => 'Usuario não cadastrado!',
                 'errors' => $validator->errors()
             ], 422);
         }
 
-        $data = $validator->validated();
-        unset($data['is_admin']);
-        $user = User::find($data['admin_id']);
-
-        $user->merchant()->create($data);
+        User::create($validator->validated());
 
         return response()->json(['message' => 'Usuario cadastrado com sucesso!']);
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(int $id)
+    public function show(User $id)
     {
-        try {
-            return Merchant::find($id);
-        } catch (\Throwable $e) {
-            return response()->json(['message' => 'Merchant não existe']);
-        }
+        return $id;
     }
 
     /**
@@ -69,7 +53,8 @@ class MerchantsController extends Controller
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
-            'merchant_name' => 'required|string'
+            'full_name' => 'required|string',
+            'is_admin' => 'required|boolean',
         ]);
 
         if ($validator->fails() || empty($id)) {
@@ -79,9 +64,10 @@ class MerchantsController extends Controller
             ], 422);
         }
 
-        Merchant::where('id', $id)->update($validator->validated());
+        User::where('id', $id)->update($validator->validated());
 
         return response()->json(['message' => 'Usuario atualizado com sucesso!']);
+
     }
 
     /**
@@ -90,8 +76,8 @@ class MerchantsController extends Controller
     public function destroy(string $id)
     {
         try {
-            $merchant = Merchant::where('id', $id)->first();
-            $merchant->delete();
+            $user = User::where('id', $id)->first();
+            $user->delete();
             return response()->json(['message' => 'Usuario deletado com sucesso!']);
         } catch (\Throwable $e) {
             return response()->json(['message' => 'Não foi possivel remover este usuario!']);

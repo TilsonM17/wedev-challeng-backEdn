@@ -11,4 +11,11 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    protected $guarded = ['id'];
+
+    public function merchant()
+    {
+        return $this->hasOne(Merchant::class, 'admin_id');
+    }
 }
