@@ -43,7 +43,7 @@ services:
             - PGDATABASE=$DB_DATABASE
             - PGDATA=/data/postgres
         volumes:
-            - ~/.databases/wedev_challeng_backedn:/data/postgres
+            - ./docker/database:/data/postgres
         networks:
             - challenge
 

@@ -17,7 +17,7 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
+            'name' => $this->faker->word,
             'merchant_id' => \App\Models\Merchant::inRandomOrder()->first()->id,
             'price' => $this->faker->randomFloat(2, 0, 100),
             'status' => 'in_stock',

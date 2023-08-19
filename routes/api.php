@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', LoginUser::class);
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    // Bussiness logic
+Route::middleware('auth:sanctum')->group( function () {
+    Route::apiResources([
+        'users' => \App\Http\Controllers\UsersController::class,
+        'merchants' => \App\Http\Controllers\MerchantsController::class,
+        'orders' => \App\Http\Controllers\OrdersController::class,
+        'products' => \App\Http\Controllers\ProductsController::class,
+    ]);
 });
+
+

@@ -56,12 +56,6 @@ RUN echo "$USERID";
 RUN groupadd -g $USERID $USERNAME
 RUN useradd -u $USERID -ms /bin/bash -g $USERNAME $USERNAME
 
-# Copy existing application directory contents
-COPY .. /var/www/
-
-# Copy existing application directory permissions
-COPY --chown=$USERNAME:$USERNAME .. /var/www/
-
 # Change current user to www
 USER $USERNAME
 
